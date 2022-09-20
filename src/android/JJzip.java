@@ -27,6 +27,10 @@ public class JJzip extends CordovaPlugin {
      * @return                  True if the action was valid, false if not.
      */
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+
+        if (action != null) {
+            cordova.getThreadPool().execute(() -> {
+                try {
         boolean result          = true;
         String actionType       = "";
         JSONObject validOptions = validOptions(args);
@@ -47,14 +51,25 @@ public class JJzip extends CordovaPlugin {
                 result                  = unZip.unZip();
             break;
             default:
-                this.processResponse(callbackContext, false, "Some parameters were missed - Action not found -");
+                JJzip.processResponse(callbackContext, false, "Some parameters were missed - Action not found -");
                 result = false;
             break;
         }
 
         String msg  = (result)?actionType+" Operation success":actionType+" Operation fail";
-        this.processResponse(callbackContext, result, msg);
-        return result;
+                    JJzip.processResponse(callbackContext, result, msg);
+                    //return result;
+                } catch (Exception ex) {
+                    //return false;
+                    callbackContext.error(ex.getMessage());
+                }
+            });
+
+            return true;
+        } else {
+            JJzip.processResponse(callbackContext, false, "unknown action");
+            return false;
+        }
     }
 
     /**
@@ -64,7 +79,7 @@ public class JJzip extends CordovaPlugin {
      * @param msg               The String msg to by send
      * @throws JSONException
      */
-    private void processResponse(CallbackContext ctx, boolean success, String msg) throws JSONException{
+    private static void processResponse(CallbackContext ctx, boolean success, String msg) throws JSONException{
         JSONObject response = new JSONObject();
         response.put("success", success);
         response.put("message", msg);
