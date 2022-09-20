@@ -6,8 +6,8 @@ Cordova plugin to compress and decompress (__zip__/__unzip__) files and folders 
 __Contributors are welcome.__
 
 Platforms supported
-* __android__
-* __iOS__ (On top of: [SSZipArchive](https://cocoapods.org/pods/SSZipArchive "In case you want to be curious").)
+* __android__ (zip/unzip) Multithread (not lagging Webview on big files).
+* __iOS__ (On top of: [SSZipArchive](https://cocoapods.org/pods/SSZipArchive "In case you want to be curious").) (zip/unzip)
 
 Installation
 ---
