@@ -21,7 +21,7 @@ The object `JJzip` is expose in the `window`:
 
 ### Methonds
 
-* `zip(file [, options, successCallback, errorCallback])` - Allow to zip a file or folder (__Android only__)
+* `zip(file [, options, successCallback, errorCallback])` - Allow to zip a file or folder (__Android and __IOS)
     * `file` - Path/To/File/Or/Folder
     * `options` - Compression options in a JS object format (Key:"value")
         * __target__: Path/To/Place/Result
